@@ -1,6 +1,6 @@
 package com.muhib.clickdown.services.types;
 
-import com.muhib.clickdown.models.types.Role;
+import com.muhib.clickdown.models.types.ENUMS;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +16,5 @@ public class RegisterRequest {
     private String username;
     private String email;
     private String password;
-    private Role role;
+    private ENUMS.Role role;
 }

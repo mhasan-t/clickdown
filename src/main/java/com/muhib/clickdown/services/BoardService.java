@@ -3,7 +3,6 @@ package com.muhib.clickdown.services;
 import com.muhib.clickdown.models.Board;
 import com.muhib.clickdown.models.BoardUser;
 import com.muhib.clickdown.models.User;
-import com.muhib.clickdown.models.types.Role;
 import com.muhib.clickdown.repositories.BoardRepository;
 import com.muhib.clickdown.repositories.BoardUserRepository;
 import com.muhib.clickdown.services.types.BoardUserKey;

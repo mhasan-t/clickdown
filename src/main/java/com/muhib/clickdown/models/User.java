@@ -1,12 +1,11 @@
 package com.muhib.clickdown.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.muhib.clickdown.models.types.Role;
+import com.muhib.clickdown.models.types.ENUMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -42,7 +41,7 @@ public class User implements UserDetails {
     private Timestamp createdAt;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private ENUMS.Role role;
 
     @OneToMany(mappedBy = "createdBy")
     @JsonIgnore

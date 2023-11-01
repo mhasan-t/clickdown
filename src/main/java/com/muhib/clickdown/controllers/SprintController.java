@@ -1,6 +1,6 @@
 package com.muhib.clickdown.controllers;
 
-import com.muhib.clickdown.controllers.types.CreateSprintRequest;
+import com.muhib.clickdown.controllers.types.REQUESTS;
 import com.muhib.clickdown.models.Sprint;
 import com.muhib.clickdown.models.Task;
 import com.muhib.clickdown.models.User;
@@ -33,7 +33,7 @@ public class SprintController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createSprint( @Validated @RequestBody CreateSprintRequest request, Principal principal){
+    public ResponseEntity<String> createSprint(@Validated @RequestBody REQUESTS.CreateSprintRequest request, Principal principal){
 //        if (request.getFlag){
 //            return new ResponseEntity<String>("Bad request.",HttpStatus.BAD_REQUEST);
 //        }

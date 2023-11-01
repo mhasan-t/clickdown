@@ -1,12 +1,11 @@
 package com.muhib.clickdown.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.muhib.clickdown.models.types.StatusType;
+import com.muhib.clickdown.models.types.ENUMS;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.sql.Timestamp;
@@ -30,7 +29,7 @@ public class Task {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private StatusType status = StatusType.PENDING;
+    private ENUMS.StatusType status = ENUMS.StatusType.PENDING;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, updatable = false, insertable = false)
     private Timestamp createdAt;

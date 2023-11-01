@@ -1,7 +1,6 @@
 package com.muhib.clickdown.controllers;
 
-import com.muhib.clickdown.controllers.types.BasicResponse;
-import com.muhib.clickdown.controllers.types.CreateBoardRequest;
+import com.muhib.clickdown.controllers.types.REQUESTS;
 import com.muhib.clickdown.models.Board;
 import com.muhib.clickdown.models.BoardUser;
 import com.muhib.clickdown.models.Sprint;
@@ -9,13 +8,10 @@ import com.muhib.clickdown.models.User;
 import com.muhib.clickdown.services.BoardService;
 import com.muhib.clickdown.services.SprintService;
 import com.muhib.clickdown.services.UserService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -40,7 +36,7 @@ public class BoardController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createBoard(@RequestBody CreateBoardRequest request, Principal principal){
+    public ResponseEntity<String> createBoard(@RequestBody REQUESTS.CreateBoardRequest request, Principal principal){
         if (request.getName() == null || request.getDescription() == null){
             return new ResponseEntity<String>("Bad request.",HttpStatus.BAD_REQUEST);
         }
