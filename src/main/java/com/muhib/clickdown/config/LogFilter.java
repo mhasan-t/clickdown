@@ -22,5 +22,6 @@ public class LogFilter extends OncePerRequestFilter {
         System.out.println(request.getRequestURI());
         System.out.println("******************************************************************************\n");
         filterChain.doFilter(request, response);
+        return;
     }
 }

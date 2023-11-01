@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            System.out.println("BAD TOKEN");
+            System.out.println("BAD TOKEN "+ authHeader );
             filterChain.doFilter(request, response);
             return;
         }
