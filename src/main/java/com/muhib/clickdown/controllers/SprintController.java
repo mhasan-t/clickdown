@@ -1,26 +1,29 @@
 package com.muhib.clickdown.controllers;
 
-import com.muhib.clickdown.controllers.types.REQUESTS;
 import com.muhib.clickdown.models.Sprint;
 import com.muhib.clickdown.models.Task;
 import com.muhib.clickdown.models.User;
 import com.muhib.clickdown.services.BoardService;
 import com.muhib.clickdown.services.SprintService;
 import com.muhib.clickdown.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController @RequiredArgsConstructor
-@RequestMapping("/sprint")
+@RequestMapping("/sprints")
 public class SprintController {
     private final SprintService sprintService;
     private final UserService userService;
@@ -33,7 +36,7 @@ public class SprintController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createSprint(@Validated @RequestBody REQUESTS.CreateSprintRequest request, Principal principal){
+    public ResponseEntity<String> createSprint(@Valid @RequestBody Sprint request, Principal principal){
 //        if (request.getFlag){
 //            return new ResponseEntity<String>("Bad request.",HttpStatus.BAD_REQUEST);
 //        }
@@ -41,11 +44,12 @@ public class SprintController {
 
         try {
             Sprint sprint = new Sprint();
-            sprint.setTitle(request.getName());
+            sprint.setTitle(request.getTitle());
             sprint.setDescription(request.getDescription());
             sprint.setStartDate(Timestamp.valueOf(request.getStartDate().toLocalDateTime()));
             sprint.setEndDate(request.getEndDate());
-            sprint.setBoard(boardService.getBoardById(request.getBoardId()).get());
+//            sprint.setBoard(boardService.getBoardById(request.getBoardId()).get());
+            sprint.setBoard(request.getBoard());
             sprintService.save(sprint);
         }
         catch (NoSuchElementException e){
@@ -63,4 +67,16 @@ public class SprintController {
         return new ResponseEntity<List<Task>>(s.getTasks(), HttpStatus.OK);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
 }

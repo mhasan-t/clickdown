@@ -35,6 +35,7 @@ public class Task {
     private Timestamp createdAt;
 
     @OneToMany(mappedBy = "postedTo")
+    @JsonIgnore
     private List<Comment> comments;
 
     @ManyToOne

@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/tasks ")
 @RequiredArgsConstructor
 public class TaskController {
 

@@ -1,7 +1,10 @@
 package com.muhib.clickdown.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +21,9 @@ public class Sprint {
             strategy = GenerationType.AUTO
     )
     private int id;
-    @Column(nullable = false) private String title;
+    @Column(nullable = false)
+    @NotBlank(message = "Title must be given.")
+    private String title;
     @Column(nullable = false) private String description;
     @Column  private Timestamp startDate;
     @Column private Timestamp endDate;
@@ -28,7 +33,8 @@ public class Sprint {
 
     @ManyToOne
     @JoinColumn(
-            name = "board_id"
+            name = "board_id",
+            nullable = false
     )
     @JsonIgnore
     private Board board;

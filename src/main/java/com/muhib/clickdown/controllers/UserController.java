@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -29,7 +29,7 @@ public class UserController {
     public ResponseEntity<?> getMe(Principal principal){
         Optional<User> currentUser = userService.getUserRefByEmail(principal.getName());
         if (currentUser.isEmpty()){
-            return new ResponseEntity<>("Not found.", HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>("Not found.", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<User>(currentUser.get(), HttpStatus.OK);
     }
